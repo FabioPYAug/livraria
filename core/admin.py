@@ -29,6 +29,7 @@ class UserAdmin(BaseUserAdmin):
                 )
             },
         ),
+        (_("Personal Info"), {"fields": ("name","foto")}),
         (_("Important dates"), {"fields": ("last_login",)}),
         (_("Groups"), {"fields": ("groups",)}),
         (_("User Permissions"), {"fields": ("user_permissions",)}),
