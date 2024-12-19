@@ -57,7 +57,7 @@ class CompraSerializer(ModelSerializer):
 
 
 class CompraCreateUpdateSerializer(ModelSerializer):
-    itens = ItensCompraCreateUpdateSerializer(many=True) # Aqui mudou
+    itens = ItensCompraCreateUpdateSerializer(many=True)
     usuario = HiddenField(default=CurrentUserDefault())
     class Meta:
         model = Compra
@@ -67,7 +67,7 @@ class CompraCreateUpdateSerializer(ModelSerializer):
         itens = validated_data.pop("itens")
         compra = Compra.objects.create(**validated_data)
         for item in itens:
-            item["preco"] = item["livro"].preco # nova linha
+            item["preco"] = item["livro"].preco
             ItensCompra.objects.create(compra=compra, **item)
         compra.save()
         return compra
@@ -77,7 +77,7 @@ class CompraCreateUpdateSerializer(ModelSerializer):
         if itens:
             compra.itens.all().delete()
             for item in itens:
-                item["preco"] = item["livro"].preco  # nova linha
+                item["preco"] = item["livro"].preco
                 ItensCompra.objects.create(compra=compra, **item)
         compra.save()
         return super().update(compra, validated_data)
